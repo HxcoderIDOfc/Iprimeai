@@ -1,15 +1,10 @@
-const chromium = require('chrome-aws-lambda');
-const puppeteer = require('puppeteer-core');
+const puppeteer = require('puppeteer');
 const prompt = process.argv[2] || "Halo";
 
 (async () => {
-  const executablePath = await chromium.executablePath;
-
   const browser = await puppeteer.launch({
-    args: chromium.args,
-    executablePath, // 🔥 INI YANG BENAR
-    headless: chromium.headless,
-    ignoreHTTPSErrors: true,
+    headless: true,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"]
   });
 
   const page = await browser.newPage();
